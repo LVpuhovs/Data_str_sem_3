@@ -66,7 +66,7 @@ public class MyHeap<Ttype> {
 		
 		heap[counter] = element;
 		counter++;
-		//TODO reheapUp();
+		reheapUp(counter-1);
 	}
 	public Ttype dequeue() throws Exception {
 		if(isEmpty()) throw new Exception("List is empty");
@@ -89,5 +89,47 @@ public class MyHeap<Ttype> {
 		size = HEAP_DEFAULT_SIZE;
 		heap = (Ttype[]) new Object[size];
 		System.gc();
+	}
+	
+	private void reheapUp(int indexOfElement) {
+		
+		//kreisa berna index = vecaka index * 2 + 1
+		//laba berna index = vecaka index * 2 + 2
+		
+		//(kreisa berna index - 1)/2 = vecaka index
+		//(laba berna index - 2)/2 = vecaaka index
+		
+		int indexParent = (indexOfElement - 1)/2;
+		
+		if (indexParent >= 0) {
+			Ttype element = heap[indexOfElement];
+			Ttype parent = heap[indexParent];
+			
+			if (((Comparable)(element)).compareTo(parent) == 1) {
+				//maina vietam
+				swap(indexOfElement, indexParent);
+				reheapUp(indexParent);
+			}
+		}
+	}
+	
+	private void reheapDown(int indexOfElement) {
+		//TODO
+		//noskaidrot kreisaa berna index
+		//noskaidrot laba berna index
+		//noskaidrot cik bernu ir
+		// ja ir abi berni,  tad salidzinat kurs lielaks
+		// lielako salidzina  ar elementu un pec nepieciesamibas maina vietam
+		// ja ir viens(kreisais) salidzina un maina vietam
+		//ja nav bernu
+		//konkreta bridi jaizsauc si pasa funkcija (rekursija)
+		
+		
+	}
+	
+	private void swap(int index1, int index2) {
+		Ttype temp = heap[index1];
+		heap[index1] = heap[index2];
+		heap[index2] = temp;
 	}
 }
